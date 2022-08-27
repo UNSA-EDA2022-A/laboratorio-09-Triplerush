@@ -78,10 +78,24 @@ public class GraphMatrix implements Graph {
     }
 
     public int countConnectedComponents() {
+	if (numVertices <= 1) {
+		return numVertices;
+	}else{
+		ArrayList<Integer> verticesGrafo = new ArrayList<Integer>();
+		int subGrafos = 0;
 
-        return -1;
+		for (int i = 0; i < numVertices; i++)
+			verticesGrafo.add(i);
+
+		while (verticesGrafo.size() > 0) {
+			for (Integer a : depthFirstSearch(verticesGrafo.get(verticesGrafo.size() - 1)))
+				verticesGrafo.remove(a);
+			subGrafos++;
+		}
+		return subGrafos;
+	}
     }
-
+    
     public static void main(String args[]) {
         GraphMatrix graph = new GraphMatrix(5);
         graph.addEdge(0, 1);
